@@ -1,5 +1,5 @@
 {
-    "name": "sitegeist/permitA38",
+    "name": "sitegeist/permit-a38",
     "description": "Neos integration tooling for the Sitegeist.Flow.OAuth2Server",
     "type": "neos-package",
     "config": {
