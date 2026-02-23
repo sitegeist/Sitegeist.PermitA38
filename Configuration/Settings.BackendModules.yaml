@@ -1,0 +1,11 @@
+Neos:
+  Neos:
+    modules:
+      administration:
+        submodules:
+          sitegeist_permit-a38:
+            label: 'OAuth2 Server Configuration'
+            description: 'OAuth2 Server Configuration'
+            icon: 'icon-key'
+            controller: 'Sitegeist\PermitA38\Application\ServerConfiguration\Controller\ServerConfigurationController'
+            privilegeTarget: 'Sitegeist.PermitA38:ServerConfiguration'

@@ -1,0 +1,51 @@
+prototype(Sitegeist.PermitA38:ClientManagement.UpdateForm) < prototype(Neos.Fusion:Component) {
+  renderer = afx`
+    <legend>Update client {client.identifier}</legend>
+
+    <Neos.Fusion.Form:Form
+      form.target.action="update"
+    >
+      <div class="neos-control-group">
+        <Neos.Fusion.Form:Hidden field.id="identity" field.name="identity" field.value={client.persistenceObjectIdentifier} />
+        <label class="neos-control-label" for="identifier">Client ID</label>
+        <div class="neos-controls neos-controls-row">
+          <Neos.Fusion.Form:Textfield field.id="identifier" field.name="identifier" field.value={client.identifier} attributes.class="neos-span6" />
+        </div>
+        <label class="neos-control-label" for="name">Name</label>
+        <div class="neos-controls neos-controls-row">
+          <Neos.Fusion.Form:Textfield field.id="name" field.name="name" field.value={client.name} attributes.class="neos-span6" />
+        </div>
+        <label class="neos-control-label" for="redirectUri">Redirect URI</label>
+        <div class="neos-controls neos-controls-row">
+          <Neos.Fusion.Form:Textarea field.id="redirectUri" field.name="redirectUri" content={client.redirectUriAsString} attributes.class="neos-span6" />
+        </div>
+      </div>
+
+      <div class="neos-footer">
+        <Neos.Fusion:Link.Action href.action="index" class="neos-button">Back</Neos.Fusion:Link.Action>
+        <Neos.Fusion.Form:Button attributes.class="neos-button neos-button-primary">Save client</Neos.Fusion.Form:Button>
+      </div>
+
+    </Neos.Fusion.Form:Form>
+
+    <legend>Change secret for client {client.identifier}</legend>
+
+    <Neos.Fusion.Form:Form
+      form.target.action="updateSecret"
+    >
+      <div class="neos-control-group">
+        <Neos.Fusion.Form:Hidden field.id="identity" field.name="identity" field.value={client.persistenceObjectIdentifier} />
+        <label class="neos-control-label" for="clientSecret">Client Secret</label>
+        <div class="neos-controls neos-controls-row">
+          <Neos.Fusion.Form:Password field.id="clientSecret" field.name="clientSecret" attributes.class="neos-span6" />
+        </div>
+      </div>
+
+      <div class="neos-footer">
+        <Neos.Fusion:Link.Action href.action="index" class="neos-button">Back</Neos.Fusion:Link.Action>
+        <Neos.Fusion.Form:Button attributes.class="neos-button neos-button-primary">Save secret</Neos.Fusion.Form:Button>
+      </div>
+
+    </Neos.Fusion.Form:Form>
+  `
+}

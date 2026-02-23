@@ -17,6 +17,8 @@
     "prefer-stable": true,
     "require": {
         "neos/neos": "^8.3.0",
+        "neos/fusion": "^8.3.0",
+        "neos/fusion-form": "^8.3.0",
         "sitegeist/flow-oauth2server": "*"
     },
     "require-dev": {

@@ -1,0 +1,18 @@
+privilegeTargets:
+  'Neos\Neos\Security\Authorization\Privilege\ModulePrivilege':
+    'Sitegeist.PermitA38:ServerConfiguration':
+      matcher: 'administration/sitegeist_permit-a38'
+
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+    'Sitegeist.PermitA38:ClientManagement':
+      matcher: 'method(Sitegeist\PermitA38\Application\ClientManagement\Controller\ClientManagementController->.*Action())'
+
+roles:
+  'Neos.Neos:Administrator':
+    privileges:
+      -
+        privilegeTarget: 'Sitegeist.PermitA38:ServerConfiguration'
+        permission: GRANT
+      -
+        privilegeTarget: 'Sitegeist.PermitA38:ClientManagement'
+        permission: GRANT

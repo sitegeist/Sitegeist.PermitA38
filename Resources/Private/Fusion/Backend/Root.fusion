@@ -1,0 +1,21 @@
+include: resource://Neos.Fusion/Private/Fusion/Root.fusion
+include: resource://Neos.Fusion.Form/Private/Fusion/Root.fusion
+include: **/*.fusion
+
+Sitegeist.PermitA38.Application.ServerConfiguration.ServerConfigurationController {
+    index = Sitegeist.PermitA38:ServerConfiguration.Index
+}
+
+Sitegeist.PermitA38.Application.ClientManagement.ClientManagementController {
+    index = Sitegeist.PermitA38:ClientManagement.Index
+    creationForm = Sitegeist.PermitA38:ClientManagement.CreationForm
+    updateForm = Sitegeist.PermitA38:ClientManagement.UpdateForm
+}
+
+#Sitegeist.LostInTranslation.LostInTranslationModuleController.showStatus = Sitegeist.LostInTranslation:Views.ShowStatus
+#Sitegeist.LostInTranslation.LostInTranslationModuleController.setCustomKey = Sitegeist.LostInTranslation:Views.SetCustomKey
+#Sitegeist.LostInTranslation.LostInTranslationModuleController.createGlossary = Sitegeist.LostInTranslation:Views.CreateGlossary
+#Sitegeist.LostInTranslation.LostInTranslationModuleController.showGlossary = Sitegeist.LostInTranslation:Views.ShowGlossary
+#Sitegeist.LostInTranslation.LostInTranslationModuleController.createGlossaryEntry = Sitegeist.LostInTranslation:Views.CreateGlossaryEntry
+#Sitegeist.LostInTranslation.LostInTranslationModuleController.editGlossaryEntry = Sitegeist.LostInTranslation:Views.EditGlossaryEntry
+

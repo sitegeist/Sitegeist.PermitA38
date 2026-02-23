@@ -1,0 +1,43 @@
+prototype(Sitegeist.PermitA38:ServerConfiguration.Index) < prototype(Neos.Fusion:Component) {
+  renderer = afx`
+    <legend>OAuth2 Server Configuration</legend>
+
+    <div class="neos-row-fluid">
+        <Sitegeist.PermitA38:Widget
+            icon="key"
+            url.subpackage="Application\\ClientManagement"
+            url.controller="ClientManagement"
+            title="Client Management"
+            description="Allows management of OAuth2 clients"
+        />
+    </div>
+  `
+}
+
+prototype(Sitegeist.PermitA38:Widget) < prototype(Neos.Fusion:Component) {
+    icon = ""
+    url = Neos.Fusion:ActionUri {
+        package = 'Sitegeist.PermitA38'
+        subpackage = 'Application\\ServerConfiguration'
+        controller = 'ServerConfiguration'
+        action = 'index'
+    }
+    title = ""
+    description = ""
+    footer = ""
+
+    renderer = afx`<div class="neos-span4">
+        <div class="widget">
+            <div class="widget-header">
+                <i class={'neos-pull-left fas fa-' + props.icon}></i>
+                <h3>
+                    <a href={props.url}>{props.title}</a>
+                </h3>
+            </div>
+            <div class="widget-body">
+                <p>{props.description}</p>
+            </div>
+            <div class="widget-footer">{props.footer}</div>
+        </div>
+    </div>`
+}

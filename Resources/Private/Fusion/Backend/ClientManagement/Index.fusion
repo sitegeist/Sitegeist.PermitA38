@@ -1,0 +1,81 @@
+prototype(Sitegeist.PermitA38:ClientManagement.Index) < prototype(Neos.Fusion:Component) {
+  renderer = afx`
+    <div class="neos-content neos-container-fluid">
+        <Neos.Fusion:Link.Action href.action="index" href.subpackage="Application\\ServerConfiguration" href.controller="ServerConfiguration" class="neos-button neos-active">
+            <i class="fas fa-key"></i>&nbsp;Server Configuration
+        </Neos.Fusion:Link.Action>
+    </div>
+
+    <legend>Clients</legend>
+
+    <table class="neos-table">
+      <thead>
+      <tr>
+        <th>Client ID</th>
+        <th>Name</th>
+        <th>Redirect URI</th>
+        <th>Confidential</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <Neos.Fusion:Loop items={clients} itemName="client" iterationName="iterator">
+        <tr>
+          <td>
+            {client.identifier}
+          </td>
+          <td>
+            {client.name}
+          </td>
+          <td>
+            {client.redirectUriAsString}
+          </td>
+          <td>
+              <i class="fas fa-check-circle" @if={client.confidential}></i>
+          </td>
+          <td class="neos-action">
+            <button class="neos-button neos-button-danger neos-pull-right" title="delete client" data-toggle="modal" href={"#deleteClient" + client.identifier}>
+              <i class="fas fa-trash"></i> Delete Client
+            </button>
+
+            <div class="neos-hide" id={"deleteClient" + client.identifier}>
+              <div class="neos-modal">
+                <div class="neos-modal-header">
+                  <button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+                  <div class="neos-header">Delete Client {client.identifier}</div>
+                </div>
+                <div class="neos-modal-footer">
+                  <a href="#" class="neos-button" data-dismiss="modal">Cancel</a>
+                  <Neos.Fusion.Form:Form
+                    form.target.action="delete"
+                    attributes.class="neos-inline"
+                  >
+                    <Neos.Fusion.Form:Hidden field.name="identity" field.value={client.persistenceObjectIdentifier}/>
+                    <Neos.Fusion.Form:Button attributes.class="neos-button neos-button-danger">Delete Client
+                    </Neos.Fusion.Form:Button>
+                  </Neos.Fusion.Form:Form>
+                </div>
+              </div>
+              <div class="neos-modal-backdrop neos-in"></div>
+            </div>
+
+            <Neos.Fusion:Link.Action
+                href.action="updateForm"
+                href.arguments.identity={client.persistenceObjectIdentifier}
+                class="neos-button  neos-pull-right"
+            >
+              <i class="fas fa-edit"></i> Edit Client
+            </Neos.Fusion:Link.Action>
+          </td>
+        </tr>
+      </Neos.Fusion:Loop>
+      </tbody>
+    </table>
+
+    <Neos.Fusion:Fragment>
+      <Neos.Fusion:Link.Action href.action="creationForm" class="neos-button neos-button-primary">
+        Create new client
+      </Neos.Fusion:Link.Action>
+    </Neos.Fusion:Fragment>
+  `
+}
