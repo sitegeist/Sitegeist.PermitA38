@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Sitegeist\PermitA38\Application\ClientManagement\Controller;
 
+use Neos\Error\Messages\Message;
 use Neos\Flow\Mvc\View\ViewInterface;
 use Neos\Flow\Security\Cryptography\HashService;
 use Neos\Fusion\View\FusionView;
 use Neos\Neos\Controller\Module\AbstractModuleController;
-use Sitegeist\Flow\OAuth2Server\Infrastructure\FlowClientEntity;
-use Sitegeist\Flow\OAuth2Server\Infrastructure\FlowClientEntityRepository;
+use Sitegeist\Flow\OAuth2Server\Infrastructure\Client;
+use Sitegeist\Flow\OAuth2Server\Infrastructure\ClientRepository;
 
 class ClientManagementController extends AbstractModuleController
 {
     public function __construct(
-        private readonly FlowClientEntityRepository $clientRepository,
+        private readonly ClientRepository $clientRepository,
         private readonly HashService $hashService,
     ) {
     }
@@ -44,7 +45,7 @@ class ClientManagementController extends AbstractModuleController
         ?string $name,
         string $redirectUri,
     ): void {
-        $client = new FlowClientEntity();
+        $client = new Client();
         $client->setIdentifier($clientId);
         $client->setSecret($clientSecret ? $this->hashService->hashPassword($clientSecret) : null);
         if ($name) {
@@ -69,10 +70,14 @@ class ClientManagementController extends AbstractModuleController
         string $redirectUri,
     ): void {
         $client = $this->clientRepository->findByIdentifier($identity);
-        $client->setName($name);
-        $client->setRedirectUri(trim($redirectUri));
-
-        $this->clientRepository->update($client);
+        if (!$client) {
+            $this->addFlashMessage(messageBody: 'Unknown client "' . $identity . '"', severity: Message::SEVERITY_WARNING);
+        } else {
+            $client->setName($name);
+            $client->setRedirectUri(trim($redirectUri));
+            $this->clientRepository->update($client);
+            $this->addFlashMessage(messageBody: 'Client successfully updated');
+        }
 
         $this->redirect('index');
     }
@@ -82,14 +87,25 @@ class ClientManagementController extends AbstractModuleController
         ?string $clientSecret,
     ): void {
         $client = $this->clientRepository->findByIdentifier($identity);
-        $client->setSecret($clientSecret ? $this->hashService->hashPassword($clientSecret) : null);
-        $this->clientRepository->update($client);
+        if (!$client) {
+            $this->addFlashMessage(messageBody: 'Unknown client "' . $identity . '"', severity: Message::SEVERITY_WARNING);
+        } else {
+            $client->setSecret($clientSecret ? $this->hashService->hashPassword($clientSecret) : null);
+            $this->clientRepository->update($client);
+            $this->addFlashMessage(messageBody: 'Client secret successfully updated');
+        }
         $this->redirect('index');
     }
 
     public function deleteAction(string $clientId): void
     {
-        $this->clientRepository->remove($this->clientRepository->getClientEntity($clientId));
+        $client = $this->clientRepository->getClientEntity($clientId);
+        if (!$client) {
+            $this->addFlashMessage(messageBody: 'Unknown client "' . $clientId . '"', severity: Message::SEVERITY_WARNING);
+        } else {
+            $this->clientRepository->remove($client);
+            $this->addFlashMessage(messageBody: 'Client "' . $clientId . '" successfully removed');
+        }
         $this->redirect('index');
     }
 }

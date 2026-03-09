@@ -10,6 +10,13 @@ prototype(Sitegeist.PermitA38:ServerConfiguration.Index) < prototype(Neos.Fusion
             title="Client Management"
             description="Allows management of OAuth2 clients"
         />
+        <Sitegeist.PermitA38:Widget
+            icon="key"
+            url.subpackage="Application\\ScopeManagement"
+            url.controller="ScopeManagement"
+            title="Client Scope Management"
+            description="Allows management of OAuth2 client scopes"
+        />
     </div>
   `
 }

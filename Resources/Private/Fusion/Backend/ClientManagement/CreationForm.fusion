@@ -12,7 +12,7 @@ prototype(Sitegeist.PermitA38:ClientManagement.CreationForm) < prototype(Neos.Fu
         </div>
         <label class="neos-control-label" for="clientSecret">Client Secret*</label>
         <div class="neos-controls neos-controls-row">
-          <Neos.Fusion.Form:Password field.id="clientSecret" field.name="clientSecret" attributes.class="neos-span6" attributes.required="true" />
+          <Neos.Fusion.Form:Password field.id="clientSecret" field.name="clientSecret" attributes.class="neos-span6" />
         </div>
         <label class="neos-control-label" for="name">Name</label>
         <div class="neos-controls neos-controls-row">
